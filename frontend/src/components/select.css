@@ -1,0 +1,9 @@
+.ant-select-selector {
+    font-size: small;
+    border-radius: 6px;
+  }
+.filter-select{
+    background: blue;
+    font-size: small;
+    border-radius: 6px;
+}
