@@ -8,7 +8,8 @@ const handleSelect = (value)=>{
 }
 export class HistoSelector extends Component {
     static propTypes = {
-        name:PropTypes.string.isRequired
+        name:PropTypes.string.isRequired,
+        color:PropTypes.string
     }
     state = {
         selection:[0,1]
@@ -19,7 +20,7 @@ export class HistoSelector extends Component {
         return (
             <div>
             <Histoslider  width={300} height={150}
-                            selectedColor="red"
+                            selectedColor={this.props.color}
 
     // An array of objects to create the histogram
     data={[

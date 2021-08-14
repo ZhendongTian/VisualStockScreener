@@ -1,11 +1,31 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {Divider,Select,Input,Row,Col,Space,Card,Button} from 'antd'
+import {Divider,Select,Tag,Input,Row,Col,Space,Card,Button} from 'antd'
 import './select.css'
 import HistoSelector from './HistoSelector';
 const {Option,OptGroup} = Select;
+const COLORS = ['gold','lime', 'green', 'cyan','red','blue'];
+var currentColor=0
 const OPTIONS =['Price to Earnings','Forward Price to Earnings','PEG','P/S','P/B','Price/Cash','Price/Free Cash Flow','Return on Assets','Return on Equity','Return on Investment','Current Ratio','Quick Ratio']
 const OPTIONS2 = ['Gross Margin','Operating Margin','Net Profit Margin']
+function tagRender(props) {
+    const { label, value, closable, onClose } = props;
+    const onPreventMouseDown = event => {
+      event.preventDefault();
+      event.stopPropagation();
+    };
+    return (
+      <Tag
+        color={COLORS[OPTIONS.indexOf(value)%(COLORS.length)]}
+        onMouseDown={onPreventMouseDown}
+        closable={closable}
+        onClose={onClose}
+        style={{ marginRight: 3 }}
+      >
+        {label}
+      </Tag>
+    );
+  }
 class Filters extends Component {
     static propTypes = {
 
@@ -36,6 +56,8 @@ class Filters extends Component {
                                 <Space direction="vertical">
                                     <div style={{margin:'5px',width:'300px'}}>
                                     <Select
+                                        showArrow
+                                        tagRender={tagRender}
                                         onSelect={this.handleSelect}
                                         style={{width:'100%'}}
                                         className="filter-select" 
@@ -67,7 +89,7 @@ class Filters extends Component {
             <Card title="Selected Filters" >
                     {this.state.selectedFilters.map((item,index)=>
                     <>
-                    <HistoSelector name={item} key={index}>
+                    <HistoSelector color={COLORS[OPTIONS.indexOf(item)%(COLORS.length)]} name={item} key={index}>
 
                     </HistoSelector>
                     <Divider></Divider>
