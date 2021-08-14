@@ -3,7 +3,6 @@ import { AudioOutlined,UserOutlined, LaptopOutlined, NotificationOutlined } from
 import { useState } from "react"
 import DataFinder from "./components/DataFinder";
 import Filters from './components/Filters';
-
 const { Search } = Input;
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
