@@ -5,9 +5,8 @@ import './select.css'
 import HistoSelector from './HistoSelector';
 const {Option,OptGroup} = Select;
 const COLORS = ['gold','lime', 'green', 'cyan','red','blue'];
-var currentColor=0
-const OPTIONS =['Price to Earnings','Forward Price to Earnings','PEG','P/S','P/B','Price/Cash','Price/Free Cash Flow','Return on Assets','Return on Equity','Return on Investment','Current Ratio','Quick Ratio']
-const OPTIONS2 = ['Gross Margin','Operating Margin','Net Profit Margin']
+const OPTIONS =['Price to Earnings','Forward Price to Earnings','PEG','P/S','P/B','Price/Cash','Price/Free Cash Flow','Return on Assets','Return on Equity','Return on Investment','Current Ratio','Quick Ratio','Gross Margin','Operating Margin','Net Profit Margin']
+const OPTIONS2 = []
 function tagRender(props) {
     const { label, value, closable, onClose } = props;
     const onPreventMouseDown = event => {
@@ -72,13 +71,7 @@ class Filters extends Component {
                                             </Select.Option>
                                             ))}
                                         </OptGroup>
-                                        <OptGroup label="Profit & loss">
-                                        {filteredOptions2.map(item => (
-                                            <Select.Option key={item} value={item}>
-                                                {item}
-                                            </Select.Option>
-                                            ))}
-                                        </OptGroup>
+                                        
                                     </Select>
                                     </div>
                                 </Space>
