@@ -1,7 +1,17 @@
 # VisualStockScreener
 
+## Files
+
+| id_rsa | Private key          |
+| ------ | -------------------- |
+| deb.sh | Deploy backend code  |
+| def.sh | deploy frontend code |
+|        |                      |
+
+
 
 ## To-do List
+
 - [ ] Data Preprocessing
 - [ ] Slider Density Module
 - [ ] Historical Movement Module

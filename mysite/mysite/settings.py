@@ -37,13 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -51,14 +52,18 @@ MIDDLEWARE = [
 #'django.middleware.csrf.CsrfViewMiddleware',
 
 CORS_ORIGIN_ALLOW_ALL=[
-    '127.0.0.1:8080',
-    '52.151.79.44:30000'
+    'localhost:3000',
+    '127.0.0.0:3000',
+    '194.163.166.72:3000'
 ]
-CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_ALLOW_ALL = False
 CORS_ALLOW_CREDENTIALS = True
 ROOT_URLCONF = 'mysite.urls'
 
-CORS_ORIGIN_WHITELIST = ['*']
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000',
+    'http://127.0.0.0:3000',
+    'http://194.163.166.72:3000']
 
 CORS_ALLOW_METHODS = [
     'DELETE',
