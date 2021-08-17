@@ -67,6 +67,7 @@ class Filters extends Component {
                                         <OptGroup label="Ratio/Metrics">
                                         {filteredOptions.map(item => (
                                             <Select.Option key={item} value={item}>
+                                                
                                                 {item}
                                             </Select.Option>
                                             ))}
