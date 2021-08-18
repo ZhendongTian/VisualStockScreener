@@ -1,11 +1,15 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from json import dumps as jdumps
+import json
 from time import time as ttime
 import sys
 from mysite.utils.query_engine import get_filter_data
 
 def onCriteriaChange(request):
+    if request.method =='POST':
+        criteria = json.loads(request.body)
+        print(criteria)
     pass
 
 def getFilterData(request):

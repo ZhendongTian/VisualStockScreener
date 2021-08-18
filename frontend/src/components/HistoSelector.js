@@ -27,25 +27,24 @@ class HistoSelector extends Component {
           this.setState({data:data.data,perc2value:data.map})
         })
     }
-    mouseUp = (e)=>{
-      console.log('mouseup');
-    }
-    mousedown = (e)=>{
-      console.log('mousedown');
-    }
     mouseclick = (e)=>{
-      var {selection} = this.state;
       this.state.isSelected=true;
-      if(selection[0]>=selection[1]-0.1){
-        selection[0]=selection[1]-0.2
+      const post ={
+        x0:this.state.selection[0],
+        x1:this.state.selection[1],
+        name:this.state.name
       }
-
-      console.log(this.state.selection)
+      console.log(this.state.selection);
+      fetch('http://194.163.166.72:8000/',{
+        method:'POST',
+        headers:{
+          'contennt-type':'application/json'
+        },
+        body:JSON.stringify(post)
+      })
     }
     componentDidMount(){
-      window.addEventListener('mouseup',this.mouseUp)
       window.addEventListener('click',this.mouseclick)
-      window.addEventListener('mousedown',this.mousedown)
     }
 
     render() {

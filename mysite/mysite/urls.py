@@ -20,4 +20,5 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('getFilterData', views.getFilterData, name='getFilterData'),
+    path('onCriteriaChange', views.onCriteriaChange, name='onCriteriaChange'),
 ]
