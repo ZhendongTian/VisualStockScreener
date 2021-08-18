@@ -5,6 +5,13 @@ Created on Sun Aug 15 16:43:12 2021
 @author: 78182
 """
 
+#08/18/2021
+in_use_mapping = {'Shares (Basic)': 'SHARES_BASIC',
+'Earnings Per Share, Basic': 'EPS_BASIC',
+'EBITDA': 'EBITDA',
+'Return on Equity': 'ROE',
+'Free Cash Flow Per Share': 'FCF_PS',
+}
 
 names_map = {'Shares (Basic)': 'SHARES_BASIC',
  'Shares (Diluted)': 'SHARES_DILUTED',
