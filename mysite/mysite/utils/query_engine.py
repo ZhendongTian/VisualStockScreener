@@ -7,7 +7,6 @@
 
 
 import MySQLdb
-
 from mysite.utils.naming import names_map
 import json
 import pandas as pd
@@ -43,17 +42,14 @@ def add_filter(filter_name):
     result = select(names_map['Shares (Diluted)'],conn)
 
 
-def select(filter_abv,conn):
+def get_filter_df_from_db(filter_abv):
     #database_conn()
-    print ("inside select")    
-    filter_abv = names_map['Shares (Diluted)']
+    print(bcolors.OKGREEN + '[QUery_Engine(get_filter_df_from_db)]: ' + bcolors.ENDC + 'Requesting DB')
+    conn = MySQLdb.connect('194.163.166.72','stk','qqwrv!123','stock')
     df = pd.read_sql("""
         SELECT Ticker,{0} FROM financial WHERE Fiscal_Year > '2019-01-01';
         """.format(filter_abv), con=conn)
-
-    result = df
-
-    return result
+    return df
 
 def get_bins_SHARES_DILUTED(df):
     df['log_normal'] = df['SHARES_DILUTED'].apply(lambda x: np.log(x+1))
@@ -104,6 +100,8 @@ def get_bin_mapping(real_bins):
     return bin_df['readable'].tolist()
 
 def get_filter_data(filter):
-    print(bcolors.OKGREEN + '{[QUery_Engine]: ' + bcolors.ENDC + 'The name of the filter requested' +filter + bcolors.OKGREEN + '}' + bcolors.ENDC)
+    filter_name = names_map[filter]
+    print(bcolors.OKGREEN + '[QUery_Engine(get_filter_data)]: ' + bcolors.ENDC + 'The abv. name of the filter requested: ' +filter_name)
+    df = get_filter_df_from_db(filter_name)
     return 0,0
     
