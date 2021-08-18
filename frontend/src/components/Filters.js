@@ -5,7 +5,13 @@ import './select.css'
 import HistoSelector from './HistoSelector';
 const {Option,OptGroup} = Select;
 const COLORS = ['gold','lime', 'green', 'cyan','red','blue'];
-const OPTIONS =['Price to Earnings','Forward Price to Earnings','PEG','P/S','P/B','Price/Cash','Price/Free Cash Flow','Return on Assets','Return on Equity','Return on Investment','Current Ratio','Quick Ratio','Gross Margin','Operating Margin','Net Profit Margin']
+const OPTIONS = ['Shares (Basic)',
+    'Earnings Per Share, Basic',
+    'EBITDA',
+    'Return on Equity',
+    'Free Cash Flow Per Share',
+]
+const OPTIONS1 =['Price to Earnings','Forward Price to Earnings','PEG','P/S','P/B','Price/Cash','Price/Free Cash Flow','Return on Assets','Return on Equity','Return on Investment','Current Ratio','Quick Ratio','Gross Margin','Operating Margin','Net Profit Margin']
 const OPTIONS2 = []
 function tagRender(props) {
     const { label, value, closable, onClose } = props;

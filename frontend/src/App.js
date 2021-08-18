@@ -3,6 +3,7 @@ import { AudioOutlined,UserOutlined, LaptopOutlined, NotificationOutlined } from
 import { useState } from "react"
 import DataFinder from "./components/DataFinder";
 import Filters from './components/Filters';
+import header from './views/header';
 const { Search } = Input;
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
@@ -29,13 +30,7 @@ function App() {
   }
   return (
     <Layout>
-    <Header style={{backgroundColor:'white'}} className="header">
-      <div  className="logo" >
-      <span style={{color:'black'}}>Visual stock logo</span>
-      <Search placeholder="Search company" onSearch={onSearch} style={{ width: 300,padding:20 }} />
-      </div>
-      
-    </Header>
+    
     <Layout>
       <Sider width={350} style={{backgroundColor:'white',marginLeft:'20px'}} className="site-layout-background">
         <Filters></Filters>

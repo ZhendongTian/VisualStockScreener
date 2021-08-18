@@ -4,6 +4,8 @@ from json import dumps as jdumps
 from time import time as ttime
 
 def getFilterData(request):
+    name = request.GET.get('name')
+    print("the name of filter:"+name);
     map=['8.94K',
     '10.48K',
     '12.11K',

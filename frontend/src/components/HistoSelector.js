@@ -18,8 +18,8 @@ class HistoSelector extends Component {
         selection:[0,100]
     }
     componentWillMount(){
-      console.log('mounting')
-      fetch('http://194.163.166.72:8000/getFilterData')
+      console.log(this.props.name)
+      fetch('http://194.163.166.72:8000/getFilterData?name='+this.props.name)
         .then(res=>res.json())
         .then(data=>{
           console.log(data)
