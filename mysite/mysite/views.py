@@ -2,10 +2,15 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from json import dumps as jdumps
 from time import time as ttime
+import sys
+from mysite.utils.query_engine import get_filter_data
+
+def onCriteriaChange(request):
+    pass
 
 def getFilterData(request):
     name = request.GET.get('name')
-    print("the name of filter:"+name);
+    map, data = get_filter_data(name)
     map=['8.94K',
     '10.48K',
     '12.11K',
