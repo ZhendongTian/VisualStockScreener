@@ -68,7 +68,13 @@ def normalize_for_display(df,filter):
     if filter == 'EPS_BASIC':
         df['normal'] = df[filter]
         df['cut'] = pd.cut(df['normal'],bins=100)
-    
+    if filter == 'ROE':
+        df['normal'] = df[filter]
+        df['cut'] = pd.cut(df['normal'],bins=100)
+    if filter == 'FCF_PS':
+        df['normal'] = df[filter]
+        df['cut'] = pd.cut(df['normal'],bins=100)
+        
 def get_bins(serie,correction_coef):
     q_per_bin = int(len(serie)/100)
     qcut = pd.qcut(df.SHARES_DILUTED,q=int(len(df)/100),retbins=True)
@@ -115,6 +121,10 @@ def get_bin_mapping(df,real_bins,filter):
         #bin_df['real_value'] = bin_df[0].apply(lambda x: np.exp(x) + df['offset'].iloc[0])
         bin_df['real_value'] = bin_df[0]
     if filter == 'EPS_BASIC':
+        bin_df['real_value'] = bin_df[0]
+    if filter == 'ROE':
+        bin_df['real_value'] = bin_df[0]
+    if filter == 'FCF_PS':
         bin_df['real_value'] = bin_df[0]
     bin_df['readable'] = bin_df['real_value'].apply(lambda x: millify(x))
     return bin_df['readable'].tolist()
