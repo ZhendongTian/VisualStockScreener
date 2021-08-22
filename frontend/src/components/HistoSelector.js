@@ -34,14 +34,16 @@ class HistoSelector extends Component {
         x1:this.state.selection[1],
         name:this.state.name
       }
+      
       console.log(this.state.selection);
-      fetch('http://194.163.166.72:8000/',{
+      fetch('http://194.163.166.72:8000/onCriteriaChange',{
         method:'POST',
         headers:{
-          'contennt-type':'application/json'
+          'content-type':'application/json'
         },
         body:JSON.stringify(post)
-      })
+      }).then(res=>res.json())
+      .then(data=>console.log(data))
     }
     componentDidMount(){
       window.addEventListener('click',this.mouseclick)
@@ -68,12 +70,7 @@ class HistoSelector extends Component {
     onChange={array => {
       this.state.isSelected=false;
       // console.log(selection)
-      
-        if(selection[0]>=selection[1]-0.1){
-          return
-        }
-      
-      
+    
       this.setState({
         selection:array
     })}}
