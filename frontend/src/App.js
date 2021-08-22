@@ -3,7 +3,6 @@ import { AudioOutlined,UserOutlined, LaptopOutlined, NotificationOutlined } from
 import { useState } from "react"
 import DataFinder from "./components/DataFinder";
 import Filters from './components/Filters';
-
 const { Search } = Input;
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
@@ -30,7 +29,21 @@ function App() {
   }
   return (
     <Layout>
-    
+    <Header style={{backgroundColor:'white'}} className="header">
+      <div  className="logo" >
+      <span style={{color:'black'}}>Visual stock logo</span>
+      <Search placeholder="Search company" onSearch={onSearch} style={{ width: 300,padding:20 }} />
+      </div>
+      <Menu inlineCollapsed={false} theme="light" mode="horizontal" >
+        {new Array(1).fill(null).map((_, index) => {
+          const key = index + 1;
+          return <Menu.Item key={key}>{`nav ${key}`}</Menu.Item>;
+        })}
+        <Menu.Item key={0}>1</Menu.Item>
+        <Menu.Item key={1}>2</Menu.Item>
+        <Menu.Item key={2}><UserOutlined /></Menu.Item>
+      </Menu>
+    </Header>
     <Layout>
       <Sider width={350} style={{backgroundColor:'white',marginLeft:'20px'}} className="site-layout-background">
         <Filters></Filters>
