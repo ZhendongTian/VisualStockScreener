@@ -28,7 +28,6 @@ class bcolors:
 
 def millify(n):
     n = float(n)
-    print(n)
     millidx = max(0,min(len(millnames)-1,
                         int(math.floor(0 if n == 0 else math.log10(abs(n))/3))))
 
@@ -60,7 +59,15 @@ def normalize_for_display(df,filter):
     if filter == 'SHARES_BASIC':
         df['normal'] = df[filter].apply(lambda x: np.log(x+1))
         df['cut'] = pd.cut(df['normal'],bins=100)
-    
+    if filter == 'EBITDA':
+        offset = df[filter].min() - 50
+        df['offset'] = offset
+        #df['normal'] = df[filter].apply(lambda x: np.log(x+abs(offset)))
+        df['normal'] = df[filter]
+        df['cut'] = pd.cut(df['normal'],bins=100)
+    if filter == 'EPS_BASIC':
+        df['normal'] = df[filter]
+        df['cut'] = pd.cut(df['normal'],bins=100)
     
 def get_bins(serie,correction_coef):
     q_per_bin = int(len(serie)/100)
@@ -79,24 +86,36 @@ def get_real_histogram_data(serie):
     vc = out.value_counts(sort=False)
     return bins, vc
 
-def remove_outliers(serie):
-    #serie.dropna(inplace=True)
-    lessthan = serie < np.percentile(serie,97)
-    largerthan = serie > np.percentile(serie,3)
+def remove_outliers(df):
+    if df.columns[1] == 'EBITDA':
+        df.dropna(inplace=True)
+        lessthan = df['normal'] < np.percentile(df['normal'],85)
+        largerthan = df['normal'] > np.percentile(df['normal'],3)
+        mask = largerthan * lessthan
+        final = df[mask]
+        return final
+    df.dropna(inplace=True)
+    lessthan = df['normal'] < np.percentile(df['normal'],97)
+    largerthan = df['normal'] > np.percentile(df['normal'],3)
     mask = largerthan * lessthan
-    final = serie[mask]
+    final = df[mask]
     return final
 
 def generate_histogram_json(bins, vc):
     data = [{'x0':a,'x':a+1,'y':b} for a,b in zip(range(0,100),vc.tolist())]
     js = json.dumps(data)
-    js = "{" + js + "}"
     return js
 
 
-def get_bin_mapping(df,real_bins):
+def get_bin_mapping(df,real_bins,filter):
     bin_df = pd.DataFrame(real_bins)
-    bin_df['real_value'] = bin_df[0].apply(lambda x: np.exp(x) - 1)
+    if filter == 'SHARES_BASIC':
+        bin_df['real_value'] = bin_df[0].apply(lambda x: np.exp(x) - 1)
+    if filter == 'EBITDA':
+        #bin_df['real_value'] = bin_df[0].apply(lambda x: np.exp(x) + df['offset'].iloc[0])
+        bin_df['real_value'] = bin_df[0]
+    if filter == 'EPS_BASIC':
+        bin_df['real_value'] = bin_df[0]
     bin_df['readable'] = bin_df['real_value'].apply(lambda x: millify(x))
     return bin_df['readable'].tolist()
 
@@ -108,10 +127,29 @@ def get_filter_data(filter):
     return map,data
     
 def get_display_data(df,filter):
-    out_lier_remove = remove_outliers(df[filter])
     normalize_for_display(df,filter)
-    bins, vc = get_display_histogram_data(out_lier_remove)
+    df = remove_outliers(df)
+    bins, vc = get_display_histogram_data(df['normal'])
     real_bins, _ = get_real_histogram_data(df['normal'])
-    map = json.dumps(get_bin_mapping(df,real_bins))
+    map = json.dumps(get_bin_mapping(df,real_bins,filter))
     data = generate_histogram_json(bins, vc)
     return map,data
+
+'''
+def get_filter_data(filter):
+    filter_name = names_map[filter]
+    print(bcolors.OKGREEN + '[QUery_Engine(get_filter_data)]: ' + bcolors.ENDC + 'The abv. name of the filter requested: ' +filter_name)
+    df = get_filter_df_from_db(filter_name)
+    #First NormalizeData
+    normalize_for_display(df,filter)
+    #Then remove outliers
+    df = remove_outliers(df)
+    #Get data for display
+    bins, vc = get_display_histogram_data(df['normal'])
+    #Get real data for map
+    real_bins, _ = get_real_histogram_data(df['normal'])
+    
+    map = json.dumps(get_bin_mapping(df,real_bins,filter))
+    data = generate_histogram_json(bins, vc)
+    return map,data
+'''
