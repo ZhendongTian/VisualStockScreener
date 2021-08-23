@@ -39,8 +39,7 @@ class HistoSelector extends Component {
           })
           
     }
-    mouseclick = (e)=>{
-      console.log("circle clicked")
+    fetchData = ()=>{
       const post ={
         x0:this.state.selection[0],
         x1:this.state.selection[1],
@@ -54,6 +53,10 @@ class HistoSelector extends Component {
         body:JSON.stringify(post)
       }).then(res=>res.json())
       .then(data=>{})
+    }
+    mouseclick = (e)=>{
+      console.log("circle clicked")
+      this.fetchData()
     }
     componentDidMount(){
       const dom = ReactDOM.findDOMNode(this);
@@ -80,6 +83,9 @@ class HistoSelector extends Component {
       }
       console.log(text)
     }
+    handleModalClose = (e)=>{
+      this.fetchData()
+    }
     render() {
         const {selection,isModalVisible}= this.state;
         const customStyles = {
@@ -99,9 +105,7 @@ class HistoSelector extends Component {
               onRequestClose={()=>this.setState({isModalVisible:false})}
               isOpen={this.state.isModalVisible}
               onAfterOpen={this.handleModalOpen}
-              onAfterClose={(e)=>{
-                console.log("modal close")
-                console.log(e)}}
+              onAfterClose={this.handleModalClose}
               shouldCloseOnOverlayClick
               >
             <Histoslider 
