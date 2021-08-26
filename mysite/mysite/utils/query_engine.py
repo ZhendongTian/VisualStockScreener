@@ -37,8 +37,9 @@ def query_from_db(raw_json):
     list_of_filters = json.loads(raw_json)
     
 
+
 def add_filter(filter_name):
-    conn = mysql.connector.connect('localhost','stk','qqwrv!123','stock')
+    conn = mysql.connector.connect('localhost','stk','qwe!331','stock',auth_plugin='mysql_native_password')
     curs = conn.cursor()
     result = select(names_map['Shares (Diluted)'],conn)
 
@@ -46,14 +47,17 @@ def add_filter(filter_name):
 def get_filter_df_from_db(filter_abv):
     #database_conn()
     print(bcolors.OKGREEN + '[QUery_Engine(get_filter_df_from_db)]: ' + bcolors.ENDC + 'Requesting DB')
-    conn = mysql.connector.connect(host='localhost',user='stk',password='qqwrv!123',database='stock')
-    df = pd.read_sql("""
+    conn = mysql.connector.connect(host='localhost',user='stk',password='qwe!331',database='stock',auth_plugin='mysql_native_password')
+    if filter_abv in names_map.values():
+        df = pd.read_sql("""
         SELECT Ticker,{0} FROM financial WHERE Fiscal_Year > '2019-01-01';
         """.format(filter_abv), con=conn)
-    print(bcolors.OKGREEN + '[QUery_Engine(get_filter_df_from_db)]: ' + bcolors.ENDC + 'Selected from DB: ' +filter_abv)
-    conn.close()
-    df.dropna(inplace=True)
-    return df
+        print(bcolors.OKGREEN + '[QUery_Engine(get_filter_df_from_db)]: ' + bcolors.ENDC + 'Selected from DB: ' +filter_abv)
+        conn.close()
+        df.dropna(inplace=True)
+        return df
+    else:
+        print(bcolors.WARNING + '[QUery_Engine(ATTACK)]: Attacker failed' + bcolors.ENDC)
 
 def normalize_for_display(df,filter):
     if filter == 'SHARES_BASIC':

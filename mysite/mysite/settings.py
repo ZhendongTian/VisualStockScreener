@@ -114,10 +114,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'stock',
-        'HOST':'194.163.166.72',
+        'HOST':'127.0.0.1',
         'PORT':'3306',
         'USER':'stk',
-        'PASSWORD':'qqwrv!123'
+        'PASSWORD':'qwe!331'
     }
 }
 
