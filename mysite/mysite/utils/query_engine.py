@@ -152,12 +152,12 @@ def get_display_data(df,filter):
 
 def process_on_criteria_change(criteria):
     list_of_results = []
-    for k,v in criteria:
-        min = v['x0']
-        max = v['x1']
+    for k,v in criteria.items():
+        min = v['x0']/100
+        max = v['x1']/100
         list_of_results.append(get_qualified_tickers(k,min,max))
-    result = set.intersection(*list_of_results)
-    print(result)
+    result = list(set.intersection(*list_of_results))
+    print('number of stocks', len(result))
     return result
     
     
@@ -179,6 +179,8 @@ def get_qualified_tickers(filter,min,max):
                 else:
                     pass
         final = {v[0] for v in r}
+        cursor.close()
+        conn.close()
         return final
     else:
         print(bcolors.WARNING + '[QUery_Engine(ATTACK on get_qualified_tickers)]: Attacker failed' + bcolors.ENDC)
