@@ -2,7 +2,7 @@ import {CHANGE_SELECTIONS,ADD_A_FILTER,FETCH_FILTER,SUBMIT_FILTERS} from "../act
 const initialState ={
     filters:{},
     selections:{},
-    results:{}
+    results:[]
 }
 export default function(state = initialState,action){
     switch(action.type){
