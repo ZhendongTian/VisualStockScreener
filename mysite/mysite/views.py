@@ -6,6 +6,20 @@ from time import time as ttime
 import sys
 from mysite.utils.query_engine import get_filter_data
 
+
+
+def getAllFilters(request):
+    names = ['Shares (Basic)','Earnings Per Share, Basic','EBITDA','Return on Equity','Free Cash Flow Per Share']
+    all_data = {}
+    for n in names:
+        dic = {}
+        map, data = get_filter_data(n)
+        dic['map'] = map
+        dic['data'] = data
+        all_data[n] = dic
+    return HttpResponse(jdumps(all_data), content_type="application/json")
+
+
 def onCriteriaChange(request):
     criteria = json.loads(request.body)
     print(criteria)
