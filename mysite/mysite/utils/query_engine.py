@@ -149,6 +149,40 @@ def get_display_data(df,filter):
     data = generate_histogram_json(bins, vc)
     return map,data
 
+
+def process_on_criteria_change(criteria):
+    list_of_results = []
+    for k,v in criteria:
+        min = v['x0']
+        max = v['x1']
+        list_of_results.append(get_qualified_tickers(k,min,max))
+    result = set.intersection(*list_of_results)
+    print(result)
+    return result
+    
+    
+def get_qualified_tickers(filter,min,max):
+    filter_name = names_map[filter]
+    if type(min*max) == float and filter_name in names_map.values():
+        commands = [
+                '''SET @amount_from = CONVERT(FLOOR((select COUNT({0}) from financial WHERE {0} is not null ORDER BY {0}) * {1}),unsigned);'''.format(filter_name,min),
+                '''SET @amount_to = CONVERT(FLOOR((select COUNT({0}) from financial WHERE {0} is not null ORDER BY {0}) * {1}),unsigned);'''.format(filter_name,max),
+                '''PREPARE STMT FROM 'select Ticker from financial WHERE {0} is not null ORDER BY {0} limit ?,?';'''.format(filter_name),
+                '''EXECUTE STMT USING @amount_from,@amount_to;'''
+                ]
+        conn = mysql.connector.connect(host='localhost',user='stk',password='qwe!331',database='stock',auth_plugin='mysql_native_password')
+        cursor =conn.cursor()
+        for command in commands:
+            for result in cursor.execute(command, multi=True):
+                if result.with_rows:
+                    r = result.fetchall()
+                else:
+                    pass
+        final = {v[0] for v in r}
+        return final
+    else:
+        print(bcolors.WARNING + '[QUery_Engine(ATTACK on get_qualified_tickers)]: Attacker failed' + bcolors.ENDC)
+
 '''
 def get_filter_data(filter):
     filter_name = names_map[filter]
