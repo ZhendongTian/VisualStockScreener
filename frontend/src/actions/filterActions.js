@@ -18,7 +18,6 @@ export const changeSelections = (selection) => dispatch => {
     })
 }
 export const submitFilters = postData =>dispatch=>{
-
     fetch('http://194.163.166.72:8000/onCriteriaChange',{
         method:'POST',
         headers:{
@@ -29,7 +28,7 @@ export const submitFilters = postData =>dispatch=>{
         .then(res=>res.json())
         .then(results=>{
             console.log('submit over')
-            console.log('results')
+            console.log(results)
             dispatch(
                 {
                     type:SUBMIT_FILTERS,

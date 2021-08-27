@@ -22,7 +22,7 @@ class App extends Component {
             <span style={{color:'black'}}>Visual stock logo</span>
             <Search placeholder="Search company" onSearch={this.onSearch} style={{ width: 300,padding:20 }} />
             </div>
-            <Menu inlineCollapsed={false} theme="light" mode="horizontal" >
+            {/* <Menu inlineCollapsed={false} theme="light" mode="horizontal" >
               {new Array(1).fill(null).map((_, index) => {
                 const key = index + 1;
                 return <Menu.Item key={key}>{`nav ${key}`}</Menu.Item>;
@@ -30,7 +30,7 @@ class App extends Component {
               <Menu.Item key={0}>1</Menu.Item>
               <Menu.Item key={1}>2</Menu.Item>
               <Menu.Item key={2}><UserOutlined /></Menu.Item>
-            </Menu>
+            </Menu> */}
           </Header>
           <Layout>
             <Sider width={350} style={{backgroundColor:'white',marginLeft:'20px'}} className="site-layout-background">

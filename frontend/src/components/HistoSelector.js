@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { message } from 'antd';
 import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 import PropTypes from 'prop-types'
@@ -16,7 +17,11 @@ const backClick = (e)=>{
   // console.log("back clicked")
 }
 
-
+const success = () => {
+  const hide = message.loading('Action in progress..', 0);
+  // Dismiss manually and asynchronously
+  setTimeout(hide, 2500);
+};
 
 class HistoSelector extends Component {
     static propTypes = {
@@ -69,7 +74,8 @@ class HistoSelector extends Component {
       }
       const newSelections = {...selections, ...newSelect}
       this.props.changeSelections(newSelections);
-      this.props.submitFilters(selections)
+      success()
+      this.props.submitFilters(newSelections)
     }
     mouseclick = (e)=>{
       // console.log("circle clicked")
