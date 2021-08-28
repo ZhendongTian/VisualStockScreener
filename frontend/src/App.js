@@ -5,6 +5,7 @@ import { AudioOutlined,UserOutlined, LaptopOutlined, NotificationOutlined } from
 import DataFinder from "./components/DataFinder";
 import Filters from './components/Filters';
 import store from './store';
+import Results from './components/Results';
 const { Search } = Input;
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
@@ -14,6 +15,7 @@ class App extends Component {
     console.log(value)
   }
   render() {
+
     return (
       <Provider store={store}>
         <Layout>
@@ -36,7 +38,7 @@ class App extends Component {
             <Sider width={350} style={{backgroundColor:'white',marginLeft:'20px'}} className="site-layout-background">
               <Filters></Filters>
             </Sider>
-            <Layout style={{ padding: '0 24px 24px' }}>
+            <Layout  style={{ padding: '0 24px 24px' }}>
               <Breadcrumb style={{ margin: '16px 0' }}>
                 <Breadcrumb.Item>Home</Breadcrumb.Item>
                 <Breadcrumb.Item>List</Breadcrumb.Item>
@@ -47,10 +49,12 @@ class App extends Component {
                 style={{
                   padding: 24,
                   margin: 0,
-                  minHeight: 280,
+                  minHeight: 980,
+                  backgroundColor:'white'
                 }}
               >
-                
+                <Results/>
+
               </Content>
             </Layout>
           </Layout>

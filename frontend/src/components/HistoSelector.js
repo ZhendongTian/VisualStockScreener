@@ -54,17 +54,7 @@ class HistoSelector extends Component {
       //     })
           
     }
-    fetchData = ()=>{
-      const post ={
-      }
-      // fetch('http://194.163.166.72:8000/onCriteriaChange',{
-      //   method:'POST',
-      //   headers:{
-      //     'content-type':'application/json'
-      //   },
-      //   body:JSON.stringify(post)
-      // }).then(res=>res.json())
-      // .then(data=>console.log(data))
+    addData = ()=>{
       const selections = store.getState().filters.selections
       const newSelect = {
           [this.props.name]:{
@@ -77,9 +67,17 @@ class HistoSelector extends Component {
       success()
       this.props.submitFilters(newSelections)
     }
+    deleteData = ()=>{
+      var newSelections = store.getState().filters.selections
+      delete newSelections[this.props.name]
+      
+      this.props.changeSelections(newSelections);
+      success()
+      this.props.submitFilters(newSelections)
+    }
     mouseclick = (e)=>{
       // console.log("circle clicked")
-      this.fetchData()
+      this.addData()
     }
     componentDidMount(){
       // console.log(this.props.data)
@@ -90,6 +88,9 @@ class HistoSelector extends Component {
       for (let i = 0; i < circles.length; ++i) {
           circles[i].addEventListener('click',this.mouseclick)
         }
+    }
+    componentWillUnmount(){
+      this.deleteData()
     }
     histoTitleClick =()=>{
       console.log("title clicked")
