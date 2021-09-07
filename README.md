@@ -12,10 +12,10 @@
 
 ## To-do List
 
-- [ ] Data Preprocessing
-- [ ] Slider Density Module
-- [ ] Historical Movement Module
-- [ ] ...
+- [x] Data Preprocessing
+- [x] Slider Density Module
+- [x] Historical Movement Module
+- [ ] #2
 - [ ] ...
 - [ ] ...
 - [ ] ...
