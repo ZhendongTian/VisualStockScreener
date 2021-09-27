@@ -10,11 +10,11 @@
 
 
 
-## To-do List
+## To-do List 27/Sept/21
 
-- [x] Data Preprocessing
-- [x] Slider Density Module
-- [x] Historical Movement Module
+- [ ] 1. Mapping From **Ticker** to **ID, Basic Info, Logo** 
+- [ ] 2. Infomation Icon
+- [ ] 3. Comparative Graph
 - [ ] #2
 - [ ] ...
 - [ ] ...
