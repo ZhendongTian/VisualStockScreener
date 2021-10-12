@@ -158,6 +158,7 @@ def process_on_criteria_change(criteria):
         list_of_results.append(get_qualified_tickers(k,min,max))
     result = list(set.intersection(*list_of_results))
     print('number of stocks', len(result))
+    conn = mysql.connector.connect(host='localhost',user='stk',password='qwe!331',database='stock',auth_plugin='mysql_native_password')
     df = pd.read_sql("""
         SELECT * FROM busdesc WHERE tic in {0};
         """.format(result), con=conn)
@@ -165,6 +166,7 @@ def process_on_criteria_change(criteria):
     busdesc = df['busdesc']
     conm = df['conm']
     final = {ti:[n,b] for ti,n,b in zip (tic,conm,busdesc)}
+    conn.close()
     return final
     
     
