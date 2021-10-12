@@ -178,13 +178,22 @@ def get_qualified_tickers(filter,min,max):
                     r = result.fetchall()
                 else:
                     pass
-        final = {v[0] for v in r}
+        final = list({v[0] for v in r})
+        df = pd.read_sql("""
+        SELECT * FROM busdesc WHERE tic in {0};
+        """.format(final), con=conn)
+        tic = df['tic']
+        busdesc = df['busdesc']
+        conm = df['conm']
+        final = {ti:[n,b] for ti,n,b in zip (tic,conm,busdesc)}
         cursor.close()
         conn.close()
         return final
     else:
         print(bcolors.WARNING + '[QUery_Engine(ATTACK on get_qualified_tickers)]: Attacker failed' + bcolors.ENDC)
 
+
+    
 '''
 def get_filter_data(filter):
     filter_name = names_map[filter]

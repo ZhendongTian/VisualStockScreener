@@ -127,6 +127,9 @@ Write df data to newly create mysql table
 '''
 def df_to_mysql(df, engine, tbl_name):
     df.to_sql(tbl_name, engine, if_exists='replace')
+    
+    
+
 
 
 create_mysql_tbl_schema(concat, mysql_conn(mysql_engine()), 'stock', 'financial')
