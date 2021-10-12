@@ -185,7 +185,7 @@ def get_qualified_tickers(filter,min,max):
                     r = result.fetchall()
                 else:
                     pass
-        final = list({v[0] for v in r})
+        final = {v[0] for v in r}
         cursor.close()
         conn.close()
         return final
