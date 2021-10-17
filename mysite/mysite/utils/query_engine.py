@@ -156,7 +156,7 @@ def process_on_criteria_change(criteria):
         min = v['x0']/100
         max = v['x1']/100
         list_of_results.append(get_qualified_tickers(k,min,max))
-    result = list(set.intersection(*list_of_results))
+    result = tuple(list(set.intersection(*list_of_results)))
     print('number of stocks', len(result))
     conn = mysql.connector.connect(host='localhost',user='stk',password='qwe!331',database='stock',auth_plugin='mysql_native_password')
     df = pd.read_sql("""
